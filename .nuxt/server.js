@@ -1,7 +1,6 @@
 import Vue from 'vue'
-import clone from 'clone'
 import { stringify } from 'querystring'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import middleware from './middleware'
 import { createApp, NuxtError } from './index'
 import { applyAsyncData, sanitizeComponent, getMatchedComponents, getContext, middlewareSeries, promisify, urlJoin } from './utils'
@@ -9,7 +8,7 @@ import { applyAsyncData, sanitizeComponent, getMatchedComponents, getContext, mi
 const debug = require('debug')('nuxt:render')
 debug.color = 4 // force blue color
 
-const isDev = true
+const isDev = false
 
 const noopApp = () => new Vue({ render: (h) => h('div') })
 
@@ -80,7 +79,7 @@ export default async ssrContext => {
     return renderErrorPage()
   }
 
-  const s = isDev && Date.now()
+  
 
   // Components are already resolved by setContext -> getRouteData (app/utils.js)
   const Components = getMatchedComponents(router.match(ssrContext.url))
@@ -157,11 +156,7 @@ export default async ssrContext => {
   Components.forEach((Component) => {
     if (!isValid) return
     if (typeof Component.options.validate !== 'function') return
-    isValid = Component.options.validate({
-      params: app.context.route.params || {},
-      query: app.context.route.query  || {},
-      store
-    })
+    isValid = Component.options.validate(app.context)
   })
   // ...If .validate() returned false
   if (!isValid) {
@@ -202,7 +197,7 @@ export default async ssrContext => {
     return Promise.all(promises)
   }))
 
-  if (asyncDatas.length) debug('Data fetching ' + ssrContext.url + ': ' + (Date.now() - s) + 'ms')
+  
 
   // datas are the first row of each
   ssrContext.nuxt.data = asyncDatas.map(r => r[0] || {})

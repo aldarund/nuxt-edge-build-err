@@ -12,6 +12,7 @@ import { setContext, getLocation, getRouteData } from './utils'
 import { createStore } from './store.js'
 
 /* Plugins */
+import nuxt_plugin_apollomodule_6746cf44 from 'nuxt_plugin_apollomodule_6746cf44' // Source: ./apollo-module.js
 
 
 // Component: <no-ssr>
@@ -37,7 +38,7 @@ Vue.use(Meta, {
 const defaultTransition = {"name":"page","mode":"out-in","appear":false,"appearClass":"appear","appearActiveClass":"appear-active","appearToClass":"appear-to"}
 
 async function createApp (ssrContext) {
-  const router = createRouter(ssrContext)
+  const router = await createRouter(ssrContext)
 
   
   const store = createStore(ssrContext)
@@ -150,6 +151,7 @@ async function createApp (ssrContext) {
 
   // Plugin execution
   
+  if (typeof nuxt_plugin_apollomodule_6746cf44 === 'function') await nuxt_plugin_apollomodule_6746cf44(app.context, inject)
   
 
   // If server-side, wait for async component to be resolved first

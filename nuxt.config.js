@@ -17,10 +17,9 @@ module.exports = {
   ** Customize the progress bar color
   */
   css: [
-    '~/assets/css.css',
-    '~/assets/main.styl'
+    '~/assets/css.css'
   ],
-  
+
   plugins: [
   ],
   loading: { color: '#3B8070' },
@@ -31,8 +30,7 @@ module.exports = {
     tokenName: 'JWT',
     clientConfigs: {
       default: {
-        httpEndpoint: 'http://localhost',
-        persisting: false
+        httpEndpoint: 'http://localhost'
       }
     }
   },
@@ -44,7 +42,7 @@ module.exports = {
     ** Run ESLint on save
     */
     extend (config, ctx) {
-      
+      if (ctx.isClient) config.devtool = '#source-map'
     }
   }
 }

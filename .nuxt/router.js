@@ -1,11 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+const _3544a3af = () => import('..\\pages\\toolbar.vue' /* webpackChunkName: "pages_toolbar" */).then(m => m.default || m)
+const _1dcbd486 = () => import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */).then(m => m.default || m)
+
 Vue.use(Router)
-
-const _12aa8dfe = () => import('../pages/toolbar.vue' /* webpackChunkName: "pages/toolbar" */).then(m => m.default || m)
-const _2dfb1658 = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
-
 
 
 if (process.client) {
@@ -66,12 +65,12 @@ export function createRouter () {
     routes: [
 		{
 			path: "/toolbar",
-			component: _12aa8dfe,
+			component: _3544a3af,
 			name: "toolbar"
 		},
 		{
 			path: "/",
-			component: _2dfb1658,
+			component: _1dcbd486,
 			name: "index"
 		}
     ],

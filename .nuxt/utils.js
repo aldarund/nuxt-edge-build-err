@@ -104,16 +104,8 @@ export async function setContext(app, context) {
   // If context not defined, create it
   if (!app.context) {
     app.context = {
-      get isServer() {
-        console.warn('context.isServer has been deprecated, please use process.server instead.')
-        return process.server
-      },
-      get isClient() {
-        console.warn('context.isClient has been deprecated, please use process.client instead.')
-        return process.client
-      },
       isStatic: process.static,
-      isDev: true,
+      isDev: false,
       isHMR: false,
       app,
       store: app.store,
